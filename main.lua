@@ -1,6 +1,9 @@
 getgenv().options = {
     --None, SmoothLocomotion, or teleport (These can be changed in settings)
     DefaultMovementMethod = "SmoothLocomotion",
+
+    --Whether to smooth the rotation of the player. (only for SmoothLocomotion method)
+    SmoothRotation = true,
     
     --Default or ThirdPersonTrack (These can be changed in settings)
     DefaultCameraOption = "Default",

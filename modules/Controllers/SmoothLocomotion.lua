@@ -24,7 +24,11 @@ function SmoothLocomotionController:Enable()
     if not self.Connections then self.Connections = {} end
     self.super.Character = self.Character
     self.super:Enable()
-    VRService:SetTouchpadMode(Enum.VRTouchpad.Right,Enum.VRTouchpadMode.ABXY)
+    if (options.SmoothRotation) then
+        VRService:SetTouchpadMode(Enum.VRTouchpad.Right,Enum.VRTouchpadMode.VirtualThumbstick)
+    else
+        VRService:SetTouchpadMode(Enum.VRTouchpad.Right,Enum.VRTouchpadMode.ABXY)
+    end
     self.ButtonADown = false
     table.insert(self.Connections,UserInputService.InputBegan:Connect(function(Input,Processsed)
         if Processsed then return end
@@ -76,13 +80,13 @@ function SmoothLocomotionController:UpdateCharacter()
     local ForwardDirection = (WDown and 1 or 0) + (SDown and -1 or 0) + ThumbstickPosition.Y
     local SideDirection = (DDown and 1 or 0) + (ADown and -1 or 0) + ThumbstickPosition.X
 
-
     Players.LocalPlayer:Move(Vector3.new(SideDirection,0,-ForwardDirection),true)
-
-
 
     if not self.Character.Humanoid.Sit then
         local InputPosition = VRInputService:GetThumbstickPosition(Enum.KeyCode.Thumbstick2)
+        if InputPosition.Magnitude < THUMBSTICK_DEADZONE_RADIUS then
+            InputPosition = Vector3.new(0,0,0)
+        end
         local InputRadius = ((InputPosition.X ^ 2) + (InputPosition.Y ^ 2)) ^ 0.5
         local InputAngle = math.atan2(InputPosition.X,InputPosition.Y)
 
@@ -124,15 +128,20 @@ function SmoothLocomotionController:UpdateCharacter()
             end
         end
 
-        --Snap rotate the character.
         local HumanoidRootPart = self.Character.Parts.HumanoidRootPart
-        if StateChange == "Extended" then
-            if self.RightDirectionState == "Left" then
-                --Turn the player to the left.
-                HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart.Position) * CFrame.Angles(0,THUMBSTICK_MANUAL_ROTATION_ANGLE,0) * (CFrame.new(-HumanoidRootPart.Position) * HumanoidRootPart.CFrame)
-            elseif self.RightDirectionState == "Right" then
-                --Turn the player to the right.
-                HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart.Position) * CFrame.Angles(0,-THUMBSTICK_MANUAL_ROTATION_ANGLE,0) * (CFrame.new(-HumanoidRootPart.Position) * HumanoidRootPart.CFrame)
+        if options.SmoothRotation then
+            --Smooth rotate the character. (Y is up)
+            HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart.Position) * CFrame.Angles(0,-InputPosition.X * THUMBSTICK_MANUAL_ROTATION_ANGLE / 2,0) * (CFrame.new(-HumanoidRootPart.Position) * HumanoidRootPart.CFrame)
+        else
+            --Snap rotate the character.
+            if StateChange == "Extended" then
+                if self.RightDirectionState == "Left" then
+                    --Turn the player to the left.
+                    HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart.Position) * CFrame.Angles(0,THUMBSTICK_MANUAL_ROTATION_ANGLE,0) * (CFrame.new(-HumanoidRootPart.Position) * HumanoidRootPart.CFrame)
+                elseif self.RightDirectionState == "Right" then
+                    --Turn the player to the right.
+                    HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart.Position) * CFrame.Angles(0,-THUMBSTICK_MANUAL_ROTATION_ANGLE,0) * (CFrame.new(-HumanoidRootPart.Position) * HumanoidRootPart.CFrame)
+                end
             end
         end
     end
