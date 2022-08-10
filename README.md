@@ -47,7 +47,7 @@ getgenv().options = {
     NetlessVelocity = Vector3.new(0,-45,0)
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/saucekid/sauceVR/main/main.lua"))();
+loadstring(game:HttpGet("https://raw.githubusercontent.com/sethseth6/sauceVR/main/main.lua"))();
 ```
 
 ## Default Controls:
@@ -76,7 +76,7 @@ options.TurnAngle = 15         -- Change in angle left/right (degrees)
 options.ChatEnabled = true     -- See chat on your left hand in-game
  options.ChatLocalRange = 70   -- Local chat range
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/saucekid/sauceVR/extra/ROrilla.lua"))();
+loadstring(game:HttpGet("https://raw.githubusercontent.com/sethseth6/sauceVR/extra/ROrilla.lua"))();
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>

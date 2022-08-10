@@ -110,7 +110,7 @@ LocalPlayer.OnTeleport:Connect(function(State)
             options.RightHand = "Racing Helmet Flames"
             options.LeftHand = "Racing Helmet USA"
             
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/saucekid/sauceVR/main/extra/ROrilla.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/sethseth6/sauceVR/main/extra/ROrilla.lua"))()
         ]])
     end
 end)
@@ -118,7 +118,7 @@ end)
 --=========[Functions]==========--
 function getModule(module)
     assert(type(module) == "string", "string only")
-    local path = "https://raw.githubusercontent.com/saucekid/sauceVR/main/modules/"
+    local path = "https://raw.githubusercontent.com/sethseth6/sauceVR/main/modules/"
     local module = loadstring(game:HttpGetAsync(path.. module.. ".lua"))()
     return module
 end
