@@ -13,14 +13,17 @@
 
 ```lua
 getgenv().options = {
+    --None, SmoothLocomotion, or teleport (These can be changed in settings)
+    DefaultMovementMethod = "SmoothLocomotion",
+    
+    --Default or ThirdPersonTrack (These can be changed in settings)
+    DefaultCameraOption = "Default",
+    
     --Bodyslots or Default (Bodyslots is buggy and)
     Inventory = "Bodyslots" ,
     
-    --None, SmoothLocomotion, or teleport (These can be changed in settings)
-    DefaultMovementMethod = "None",
-    
-    --None, SmoothLocomotion, or teleport (These can be changed in settings)
-    DefaultCameraOption = "Default",
+    --Button to press to jump
+    JumpButton = Enum.KeyCode.ButtonA,
     
 --==[Advanced Options]
     --Character Transparency in First Person
@@ -31,13 +34,12 @@ getgenv().options = {
     MaxNeckSeatedRotation = math.rad(60),
     
     --Maximum angle the neck can tilt before the torso tilts.
-    MaxNeckTilt = math.rad(60),
+    MaxNeckTilt = math.rad(30),
     
     --Maximum angle the center of the torso can bend.
     MaxTorsoBend = math.rad(10),
     
-    --Inventory Slot Positions (Relative to HumanoidRootPart)
-    InventorySlots = {
+    InventorySlots = { 
         [1] = CFrame.new(-1,-.25,0) * CFrame.Angles(0,math.rad(0),0),
         [2] = CFrame.new(1,-.25,0) * CFrame.Angles(0,math.rad(90),0),
         [3] = CFrame.new(0,0,.5) * CFrame.Angles(0,math.rad(90),0),
