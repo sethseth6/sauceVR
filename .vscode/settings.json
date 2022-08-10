@@ -1,0 +1,19 @@
+{
+    "robloxLsp.diagnostics.globals": [
+        "options",
+        "getgenv",
+        "getconnections",
+        "hookfunction",
+        "newcclosure",
+        "hookmetamethod",
+        "checkcaller",
+        "syn",
+        "VRInputService",
+        "Character",
+        "VRCharacter",
+        "ControlService",
+        "CameraService",
+        "Workspace",
+        "BindableEvent"
+    ]
+}
