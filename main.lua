@@ -187,16 +187,8 @@ end
 
 --=========[VR script]
 function StartVR()
-    coroutine.wrap(function()
-        for i = 1,600 do
-            local Worked = pcall(function()
-                StarterGui:SetCore("VRLaserPointerMode",0)
-                StarterGui:SetCore("VREnableControllerModels",false)
-            end)
-            if Worked then break end
-            wait(0.1)
-        end
-    end)()
+    StarterGui:SetCore("VRLaserPointerMode", "Disabled")
+    StarterGui:SetCore("VREnableControllerModels", false)
     
     for i,tool in pairs(LocalPlayer.Backpack:GetChildren()) do
         if tool:IsA("Tool") then 
@@ -695,6 +687,8 @@ function StartVR()
             local CameraCenterCFrame = (CurrentCamera.CFrame*CFrame.new(HeadCFrame.p*CurrentCamera.HeadScale)) *CFrame.fromEulerAnglesXYZ(HeadCFrame:ToEulerAnglesXYZ())
             Keyboard:SetPrimaryPartCFrame((CameraCenterCFrame + Vector3.new(0,3,0)) * CFrame.new(0,0,-8))
             KeyboardActive = not KeyboardActive
+            
+            StarterGui:SetCore("VRLaserPointerMode", KeyboardActive and "Navigation" or "Disabled")
             for _,tool in pairs(tools) do
                 if tool.Hand == "Left" and tool.Handle then
                     tool.Handle.Parent:Activate()
